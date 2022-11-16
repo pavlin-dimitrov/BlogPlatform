@@ -1,5 +1,6 @@
 package com.example.BlogPlatform.entity;
 
+import java.time.LocalDate;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,27 +25,24 @@ public class Post {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
-
-  @ManyToOne(targetEntity = User.class)
+  @ManyToOne(targetEntity = Account.class)
   @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
-  @JoinColumn(name = "user_id")
-  private User user;
-
+  @JoinColumn(name = "account_id")
+  private Account account;
   private String title;
   private String body;
   private String image;
-  @Column(name = "posting_date", nullable = false)
-  private Date dateOfPosting;
-
+  @Column(name = "created_at", nullable = false)
+  private LocalDate createdAt;
   @Column(name = "delete_at")
   private Date deletedAt;
 
-  public Post(User user, String title, String body, String image, Date dateOfPosting, Date deletedAt) {
-    this.user = user;
+  public Post(Account account, String title, String body, String image, Date createdAt, Date deletedAt) {
+    this.account = account;
     this.title = title;
     this.body = body;
     this.image = image;
-    this.dateOfPosting = dateOfPosting;
+    this.createdAt = LocalDate.now();
     this.deletedAt = deletedAt;
   }
 }
