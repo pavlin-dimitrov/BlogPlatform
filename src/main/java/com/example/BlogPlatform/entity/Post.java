@@ -30,18 +30,19 @@ public class Post {
   @JoinColumn(name = "user_id")
   private User user;
 
-  private String text;
+  private String title;
+  private String body;
   private String image;
-
   @Column(name = "posting_date", nullable = false)
   private Date dateOfPosting;
 
   @Column(name = "delete_at")
   private Date deletedAt;
 
-  public Post(User user, String text, String image, Date dateOfPosting, Date deletedAt) {
+  public Post(User user, String title, String body, String image, Date dateOfPosting, Date deletedAt) {
     this.user = user;
-    this.text = text;
+    this.title = title;
+    this.body = body;
     this.image = image;
     this.dateOfPosting = dateOfPosting;
     this.deletedAt = deletedAt;
