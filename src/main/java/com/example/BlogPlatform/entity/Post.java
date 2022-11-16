@@ -35,14 +35,12 @@ public class Post {
   @Column(name = "created_at", nullable = false)
   private LocalDate createdAt;
   @Column(name = "delete_at")
-  private Date deletedAt;
+  private LocalDate deletedAt;
 
-  public Post(Account account, String title, String body, String image, Date createdAt, Date deletedAt) {
+  public Post(Account account, String title, String body, String image) {
     this.account = account;
     this.title = title;
     this.body = body;
     this.image = image;
-    this.createdAt = LocalDate.now();
-    this.deletedAt = deletedAt;
   }
 }
