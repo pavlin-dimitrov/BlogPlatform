@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 @Service
 public interface PostService {
 
+  List<Post> getAll();
+
   List<Post> getAllPostsInDescOrder();
 
   Optional<Post> getById(Long id);

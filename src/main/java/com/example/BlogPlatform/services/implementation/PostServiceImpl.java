@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,19 +19,31 @@ public class PostServiceImpl implements PostService {
   @Autowired
   private final PostRepository postRepository;
 
-  public List<Post> getAllPostsInDescOrder() {
-    return postRepository.findAllByOrderByCreatedAdDesc();
+  @Override
+  public List<Post> getAll() {
+    return postRepository.findAll();
   }
 
+  public List<Post> getAllPostsInDescOrder() {
+    return postRepository.findAllByOrderByCreatedAtDesc().stream()
+        .filter(post -> post.getDeletedAt() == null)
+        .collect(Collectors.toList());
+  }
+
+  @Override
   public Optional<Post> getById(Long id) {
     return postRepository.findById(id);
   }
 
+  @Override
   public Post save(Post post) {
-    post.setCreatedAt(LocalDate.now());
+    if (post.getId() == null) {
+      post.setCreatedAt(LocalDate.now());
+    }
     return postRepository.save(post);
   }
 
+  @Override
   public void deletePost(Long postId) {
     Optional<Post> optionalPost = postRepository.findById(postId);
     if (optionalPost.isPresent()) {
@@ -40,6 +53,7 @@ public class PostServiceImpl implements PostService {
   }
 
   //TODO may move this logic to the Controller and here just use the save() method;
+  @Override
   public void updatePost(Long postId, String title, String body, String imageURL) {
     Post post = postRepository.findById(postId).orElseThrow(
         () -> new IllegalStateException("Post with ID: " + postId + " does not exists!"));

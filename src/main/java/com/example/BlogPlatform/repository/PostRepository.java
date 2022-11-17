@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PostRepository extends JpaRepository<Post, Long> {
 
-  <Optional>Post getPostById(Long id);
+  <Optional>Post findPostById(Long id);
 
-  List<Post> findAllByOrderByCreatedAdDesc();
+  List<Post> findAllByOrderByCreatedAtDesc();
 }
