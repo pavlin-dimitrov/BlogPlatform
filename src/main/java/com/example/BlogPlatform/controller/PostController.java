@@ -26,7 +26,7 @@ public class PostController {
   }
 
   @GetMapping("/post/{id}")
-  public String getPost(@PathVariable Long id, Model model){
+  public String getPostById(@PathVariable Long id, Model model){
     Optional<Post> optionalPost = this.postService.getById(id);
 
     if (optionalPost.isPresent()){

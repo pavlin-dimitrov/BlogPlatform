@@ -1,5 +1,6 @@
 package com.example.BlogPlatform.entity;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,11 +15,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "users")
+@Table(name = "accounts")
 @NoArgsConstructor
 @Getter
 @Setter
-public class Account {
+public class Account implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
@@ -27,7 +28,7 @@ public class Account {
   private String email;
   @Column(name = "password", nullable = false)
   private String password;
-  @OneToMany(targetEntity = Post.class, mappedBy = "account", cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "account")
   private List<Post> posts;
 
   public Account(String email, String password) {
