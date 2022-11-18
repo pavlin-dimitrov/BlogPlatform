@@ -30,14 +30,15 @@ public class AccountController {
   @PostMapping("/register")
   public String register(@ModelAttribute Account account) {
     System.out.println("REGISTER: " + account);
-    Account registered = accountService.save(account.getEmail(), account.getPassword());
+    Account registered = accountService.save(account.getName(), account.getBlogName(),
+        account.getEmail(), account.getPassword());
     return registered == null ? "registration_error" : "redirect:/login";
   }
 
   @PostMapping("/login")
   public String login(@ModelAttribute Account account, Model model) {
     System.out.println("LOGIN: " + account);
-    Account authenticated = accountService.save(account.getEmail(),
+    Account authenticated = accountService.authentication(account.getEmail(),
         account.getPassword());
     if (authenticated != null) {
       model.addAttribute("userEmail", authenticated.getEmail());

@@ -16,12 +16,12 @@ public class AccountServiceImpl implements AccountService {
   private final AccountRepository accountRepository;
 
   @Override
-  public Account save(String email, String password) {
+  public Account save(String name, String blogName, String email, String password) {
     Optional<Account> accountByEmail = accountRepository.findAccountByEmailContainsIgnoreCase(email);
     if (accountByEmail.isPresent()) {
       return null;
     } else {
-      Account account = new Account(email, password);
+      Account account = new Account(name, blogName, email, password);
       return accountRepository.save(account);
     }
   }

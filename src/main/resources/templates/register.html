@@ -14,6 +14,14 @@
     <h2>Register</h2>
     <div class="input-box">
       <i class="fa fa-user" aria-hidden="true"></i>
+      <input type="text" name="text" th:field="*{name}" placeholder="Username" required>
+    </div>
+    <div class="input-box">
+      <i class="fa fa-user" aria-hidden="true"></i>
+      <input type="text" name="text" th:field="*{blogName}" placeholder="Blog name" required>
+    </div>
+    <div class="input-box">
+      <i class="fa fa-user" aria-hidden="true"></i>
       <input type="email" name="email" th:field="*{email}" placeholder="Username" required>
     </div>
     <div class="input-box">
