@@ -1,7 +1,10 @@
 package com.example.BlogPlatform.controller;
 
 import com.example.BlogPlatform.entity.Account;
+import com.example.BlogPlatform.entity.Post;
 import com.example.BlogPlatform.services.contract.AccountService;
+import com.example.BlogPlatform.services.contract.PostService;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class AccountController {
 
   private final AccountService accountService;
+  private final PostService postService;
 
   @GetMapping("/register")
   public String getRegisterPage(Model model) {
@@ -41,6 +45,9 @@ public class AccountController {
     Account authenticated = accountService.authentication(account.getEmail(),
         account.getPassword());
     if (authenticated != null) {
+      List<Account> accounts = accountService.getAllAccounts();
+      model.addAttribute("accounts", accounts);
+      model.addAttribute("userName", authenticated.getName());
       model.addAttribute("userEmail", authenticated.getEmail());
       return "account";
     } else {
