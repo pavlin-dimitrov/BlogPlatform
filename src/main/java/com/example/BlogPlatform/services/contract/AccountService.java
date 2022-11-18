@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 @Service
 public interface AccountService {
 
-  Account registerAccount(String email, String password);
+  Account save(String email, String password);
 
   Account authentication(String email, String password);
 }
