@@ -23,10 +23,14 @@ public class InitialTestData implements CommandLineRunner {
   public void run(String... args) throws Exception {
 
       Account account1 = new Account();
+      account1.setName("Elon Musk");
+      account1.setBlogName("SpaceX Blogger");
       account1.setEmail("accountOne@abv.bg");
       account1.setPassword("accountOne1");
 
       Account account2 = new Account();
+      account2.setName("Jeff Bezos");
+      account2.setBlogName("Blue Origin Space Blog");
       account2.setEmail("accountTwo@abv.bg");
       account2.setPassword("accountTwo2");
 

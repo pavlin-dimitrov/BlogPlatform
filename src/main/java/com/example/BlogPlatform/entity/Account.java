@@ -24,6 +24,10 @@ public class Account implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
+  @Column(name = "name", nullable = false)
+  private String name;
+  @Column(name = "blog_name", nullable = false)
+  private String blogName;
   @Column(name = "email", nullable = false)
   private String email;
   @Column(name = "password", nullable = false)
@@ -31,7 +35,9 @@ public class Account implements Serializable {
   @OneToMany(mappedBy = "account")
   private List<Post> posts;
 
-  public Account(String email, String password) {
+  public Account(String name, String blogName, String email, String password) {
+    this.name = name;
+    this.blogName = blogName;
     this.email = email;
     this.password = password;
   }
