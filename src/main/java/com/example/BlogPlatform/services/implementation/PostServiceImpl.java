@@ -24,6 +24,13 @@ public class PostServiceImpl implements PostService {
     return postRepository.findAll();
   }
 
+  @Override
+  public List<Post> getAllByAccountId(Long id) {
+    List<Post> accountPosts = postRepository.findAllByAccountId(id);
+    return accountPosts.stream().filter(post -> post.getDeletedAt() == null)
+        .collect(Collectors.toList());
+  }
+
   public List<Post> getAllPostsInDescOrder() {
     return postRepository.findAllByOrderByCreatedAtDesc().stream()
         .filter(post -> post.getDeletedAt() == null)

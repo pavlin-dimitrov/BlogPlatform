@@ -12,4 +12,6 @@ public interface AccountService {
   Account authentication(String email, String password);
 
   List<Account> getAllAccounts();
+
+  Account getAccountById(Long id);
 }
