@@ -42,4 +42,17 @@ public class Post {
     this.body = body;
     this.image = image;
   }
+
+  @Override
+  public String toString() {
+    return "Post{" +
+        "id=" + id +
+        ", account=" + account.getName() +
+        ", title='" + title + '\'' +
+        ", body='" + body + '\'' +
+        ", image='" + image + '\'' +
+        ", createdAt=" + createdAt +
+        ", deletedAt=" + deletedAt +
+        '}';
+  }
 }

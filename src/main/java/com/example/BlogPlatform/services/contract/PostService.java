@@ -10,6 +10,8 @@ public interface PostService {
 
   List<Post> getAll();
 
+  List<Post> getAllByAccountId(Long id);
+
   List<Post> getAllPostsInDescOrder();
 
   Optional<Post> getById(Long id);
