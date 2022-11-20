@@ -4,11 +4,9 @@ import com.example.BlogPlatform.entity.Account;
 import com.example.BlogPlatform.entity.Post;
 import com.example.BlogPlatform.services.contract.AccountService;
 import com.example.BlogPlatform.services.contract.PostService;
-import java.nio.file.attribute.UserPrincipalNotFoundException;
 import java.util.List;
-import java.util.Optional;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,6 +47,7 @@ public class AccountController {
         account.getPassword());
     if (authenticated != null) {
       List<Account> accounts = accountService.getAllAccounts();
+      model.addAttribute("authenticated", authenticated);
       model.addAttribute("accounts", accounts);
       return "account";
     } else {
@@ -57,22 +56,12 @@ public class AccountController {
   }
 
   @GetMapping("/public/{id}")
+  //TODO Check if list of accounts can be outside of this method ?
   public String openPublicAccount(@PathVariable(value = "id") Long id, Model model) {
     Account account = accountService.getAccountById(id);
     List<Post> posts = postService.getAllByAccountId(id);
-//
-//    for (int i = 0; i < accountPosts.size(); i++) {
-//      System.out.println(accountPosts.get(i).toString());
-//    }
     model.addAttribute("posts", posts);
     model.addAttribute("account", account);
     return "public_account";
   }
-
-//  @GetMapping("/public/{id}/posts")
-//  public String loadAllPostsPerAccount(@PathVariable(value = "id") Long id, Model model) {
-//    List<Post> accountPosts = postService.getAllByAccountId(id);
-//    model.addAttribute("accountPost", accountPosts);
-//    return "public_account";
-//  }
 }

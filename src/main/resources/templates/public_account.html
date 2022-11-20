@@ -28,11 +28,10 @@
     <div class="item col-12 mb-3">
       <div class="card rounded shadow border-0">
         <div class="card-body p-3">
-          <a class="text-dark" th:text="${posts.title}"><h4>Title</h4></a>
-          <p class="text-muted small" th:text="${account.name}">Author</p>
-          <p class="text-muted small" th:text="${posts.createdAt}">Published on</p>
+          <a class="text-dark" th:text="${posts.title}" th:href="@{/post/{id}(id=${posts.id})}"><h4>Title</h4></a>
+          <p class="text-muted small" th:text="'Author: ' + ${account.name}">Author</p>
+          <p class="text-muted small" th:text="'Published at: ' + ${posts.createdAt}">Published on</p>
           <p class="text-muted small" th:text="${posts.body}">Body</p>
-          <a class="btn btn-dark" href="#">Read more</a>
         </div>
       </div>
     </div>

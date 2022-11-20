@@ -13,6 +13,7 @@ import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.BatchSize;
 
 @Entity
 @Table(name = "posts")
@@ -29,6 +30,7 @@ public class Post {
   @JoinColumn(name = "account_id", referencedColumnName = "id", nullable = false)
   private Account account;
   private String title;
+  @Column(length = 1000)
   private String body;
   private String image;
   @Column(name = "created_at", nullable = false)
