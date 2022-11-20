@@ -4,7 +4,7 @@
       xsi:schemaLocation="http://www.thymeleaf.org ">
 <head>
   <meta charset="utf-8">
-  <title th:text="${account.name}"></title>
+  <title th:text="${authenticated.name}"></title>
   <!-- CSS only -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
   <!-- JavaScript Bundle with Popper -->
@@ -19,7 +19,7 @@
     <button class="btn btn-outline-success" style="margin-right: 35px" type="button">Logout</button>
   </form>
 </nav>
-<h1 style="margin-left: 15%">Welcome to Space Blogger: <span th:text="${account.name}"></span></h1>
+<h1 style="margin-left: 15%">Welcome to Space Blogger: <span th:text="${authenticated.name}"></span></h1>
 
 <div action="#"
      th:action="@{/account}"
@@ -32,7 +32,7 @@
           <a class="text-dark" th:text="${account.blogName}" th:href="@{/public/{id}(id=${account.id})}"><h4>Title</h4></a>
           <p class="text-muted small" th:text="'By Author: ' + ${account.name}">Author</p>
           <p class="text-muted small" th:text="'E-mail ' + ${account.email}">E-mail</p>
-          <a class="btn btn-dark" href="#">Read more</a>
+          <a class="btn btn-dark" th:href="@{/public/{id}(id=${account.id})}">Read more</a>
         </div>
       </div>
     </div>

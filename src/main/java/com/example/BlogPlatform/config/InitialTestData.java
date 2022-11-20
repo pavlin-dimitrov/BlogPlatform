@@ -5,6 +5,7 @@ import com.example.BlogPlatform.entity.Post;
 import com.example.BlogPlatform.repository.AccountRepository;
 import com.example.BlogPlatform.repository.PostRepository;
 import com.example.BlogPlatform.services.contract.PostService;
+import java.nio.file.Path;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -41,25 +42,25 @@ public class InitialTestData implements CommandLineRunner {
     post1.setAccount(account1);
     post1.setTitle("Post number One");
     post1.setBody("This is the body of post number one");
-    post1.setImage("URL 1 ot image");
+    post1.setImage("/images/1/1-starship.jpg");
 
     Post post2 = new Post();
     post2.setAccount(account2);
     post2.setTitle("Post number Two");
     post2.setBody("This is the body of post number TWO");
-    post2.setImage("URL 2 ot image");
+    post2.setImage("/images/2/2-blueorigin.jpg");
 
     Post post3 = new Post();
     post3.setAccount(account1);
-    post3.setTitle("Tweeter is mine!");
-    post3.setBody("This is the blog for Tweeter....I do dum things really often!");
-    post3.setImage("URL 3 ot image");
+    post3.setTitle("Twitter is mine!");
+    post3.setBody("This is the blog for Twitter....I do dum things really often!");
+    post3.setImage("/images/1/3-twitter.jpg");
 
     Post post4 = new Post();
     post4.setAccount(account2);
     post4.setTitle("Give away my money");
-    post4.setBody("I will give away all of my money in lifetime! Do you want some of them? Let me tell you how to do it!");
-    post4.setImage("URL 4 ot image");
+    post4.setBody("I will give away all of my money in lifetime! Do you want some of them? Let me tell you how to do it! I will give away all of my money in lifetime! Do you want some of them? Let me tell you how to do it! I will give away all of my money in lifetime! Do you want some of them? Let me tell you how to do it! I will give away all of my money in lifetime! Do you want some of them? Let me tell you how to do it! I will give away all of my money in lifetime! Do you want some of them? Let me tell you how to do it! I will give away all of my money in lifetime! Do you want some of them? Let me tell you how to do it!");
+    post4.setImage("/images/2/4-jeff.jpg");
 
     postService.save(post1);
     postService.save(post2);
