@@ -26,13 +26,14 @@ public class PostServiceImpl implements PostService {
 
   @Override
   public List<Post> getAllByAccountId(Long id) {
-    List<Post> accountPosts = postRepository.findAllByAccountId(id);
+    List<Post> accountPosts = postRepository.findAllByAccountIdOrderByCreatedAtDesc(id);
     return accountPosts.stream().filter(post -> post.getDeletedAt() == null)
         .collect(Collectors.toList());
   }
 
   public List<Post> getAllPostsInDescOrder() {
-    return postRepository.findAllByOrderByCreatedAtDesc().stream()
+    return postRepository.findAllByOrderByCreatedAtDesc()
+        .stream()
         .filter(post -> post.getDeletedAt() == null)
         .collect(Collectors.toList());
   }

@@ -36,9 +36,9 @@ class PostServiceImplTest {
    */
   @Test
   void testGetAllByAccountId() {
-    when(postRepository.findAllByAccountId((Long) any())).thenReturn(new ArrayList<>());
+    when(postRepository.findAllByAccountIdOrderByCreatedAtDesc((Long) any())).thenReturn(new ArrayList<>());
     assertTrue(postServiceImpl.getAllByAccountId(123L).isEmpty());
-    verify(postRepository).findAllByAccountId((Long) any());
+    verify(postRepository).findAllByAccountIdOrderByCreatedAtDesc((Long) any());
   }
 
   /**
@@ -65,9 +65,9 @@ class PostServiceImplTest {
 
     ArrayList<Post> postList = new ArrayList<>();
     postList.add(post);
-    when(postRepository.findAllByAccountId((Long) any())).thenReturn(postList);
+    when(postRepository.findAllByAccountIdOrderByCreatedAtDesc((Long) any())).thenReturn(postList);
     assertTrue(postServiceImpl.getAllByAccountId(123L).isEmpty());
-    verify(postRepository).findAllByAccountId((Long) any());
+    verify(postRepository).findAllByAccountIdOrderByCreatedAtDesc((Long) any());
   }
 
   /**
@@ -112,9 +112,9 @@ class PostServiceImplTest {
     ArrayList<Post> postList = new ArrayList<>();
     postList.add(post1);
     postList.add(post);
-    when(postRepository.findAllByAccountId((Long) any())).thenReturn(postList);
+    when(postRepository.findAllByAccountIdOrderByCreatedAtDesc((Long) any())).thenReturn(postList);
     assertTrue(postServiceImpl.getAllByAccountId(123L).isEmpty());
-    verify(postRepository).findAllByAccountId((Long) any());
+    verify(postRepository).findAllByAccountIdOrderByCreatedAtDesc((Long) any());
   }
 
   /**
@@ -122,10 +122,10 @@ class PostServiceImplTest {
    */
   @Test
   void testGetAllByAccountId4() {
-    when(postRepository.findAllByAccountId((Long) any())).thenThrow(
+    when(postRepository.findAllByAccountIdOrderByCreatedAtDesc((Long) any())).thenThrow(
         new IllegalStateException("foo"));
     assertThrows(IllegalStateException.class, () -> postServiceImpl.getAllByAccountId(123L));
-    verify(postRepository).findAllByAccountId((Long) any());
+    verify(postRepository).findAllByAccountIdOrderByCreatedAtDesc((Long) any());
   }
 
   /**
@@ -159,9 +159,9 @@ class PostServiceImplTest {
 
     ArrayList<Post> postList = new ArrayList<>();
     postList.add(post);
-    when(postRepository.findAllByAccountId((Long) any())).thenReturn(postList);
+    when(postRepository.findAllByAccountIdOrderByCreatedAtDesc((Long) any())).thenReturn(postList);
     assertEquals(1, postServiceImpl.getAllByAccountId(123L).size());
-    verify(postRepository).findAllByAccountId((Long) any());
+    verify(postRepository).findAllByAccountIdOrderByCreatedAtDesc((Long) any());
     verify(post).getDeletedAt();
     verify(post).setAccount((Account) any());
     verify(post).setBody((String) any());

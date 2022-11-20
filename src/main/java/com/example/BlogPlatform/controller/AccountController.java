@@ -56,7 +56,7 @@ public class AccountController {
   }
 
   @GetMapping("/public/{id}")
-  //TODO Check if list of accounts can be outside of this method ?
+  //TODO Check if list of accounts can be outside of this method ? I have method in PostController...
   public String openPublicAccount(@PathVariable(value = "id") Long id, Model model) {
     Account account = accountService.getAccountById(id);
     List<Post> posts = postService.getAllByAccountId(id);
