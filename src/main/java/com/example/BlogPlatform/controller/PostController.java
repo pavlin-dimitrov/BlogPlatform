@@ -19,12 +19,12 @@ public class PostController {
   @Autowired
   private final PostService postService;
 
-  @PostMapping("/posts")
-  public String getAllPosts(Model model){
-    List<Post> posts = postService.getAllPostsInDescOrder();
-    model.addAttribute("posts", posts);
-    return "public_account";
-  }
+//  @PostMapping("/posts")
+//  public String getAllPosts(Model model){
+//    List<Post> posts = postService.getAllPostsInDescOrder();
+//    model.addAttribute("posts", posts);
+//    return "public_account";
+//  }
 
   @GetMapping("/post/{id}")
   public String getPostById(@PathVariable Long id, Model model){
