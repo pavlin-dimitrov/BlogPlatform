@@ -13,4 +13,6 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
   Optional<Account> findAccountByEmailContainsIgnoreCase(String email);
 
   Account getById(Long id);
+
+  Optional<Account> findOneByEmailIgnoreCase(String authUsername);
 }

@@ -2,6 +2,7 @@ package com.example.BlogPlatform.services.contract;
 
 import com.example.BlogPlatform.entity.Account;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,4 +15,6 @@ public interface AccountService {
   List<Account> getAllAccounts();
 
   Account getAccountById(Long id);
+
+  Optional<Account> findOneByEmail(String authUsername);
 }

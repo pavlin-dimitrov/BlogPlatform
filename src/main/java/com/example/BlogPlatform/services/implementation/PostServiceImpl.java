@@ -4,6 +4,7 @@ import com.example.BlogPlatform.entity.Post;
 import com.example.BlogPlatform.repository.PostRepository;
 import com.example.BlogPlatform.services.contract.PostService;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -46,7 +47,7 @@ public class PostServiceImpl implements PostService {
   @Override
   public Post save(Post post) {
     if (post.getId() == null) {
-      post.setCreatedAt(LocalDate.now());
+      post.setCreatedAt(LocalDateTime.now());
     }
     return postRepository.save(post);
   }
@@ -56,7 +57,7 @@ public class PostServiceImpl implements PostService {
     Optional<Post> optionalPost = postRepository.findById(postId);
     if (optionalPost.isPresent()) {
       Post post = optionalPost.get();
-      post.setDeletedAt(LocalDate.now());
+      post.setDeletedAt(LocalDateTime.now());
     }
   }
 
