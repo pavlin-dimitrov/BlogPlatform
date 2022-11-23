@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.thymeleaf.org ">
+<html xmlns:th="http://www.thymeleaf.org" lang="en"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org ">
 <head>
   <meta charset="utf-8">
   <title th:text="${post.title}"></title>
@@ -31,7 +33,8 @@
           <img class="img-thumbnail" th:src="@{${post.image}}" alt="Post image" width="840"
                height="680">
           <p class="text-muted small" th:text="'Author: ' + ${post.account.name}">Author: Name</p>
-          <p class="text-muted small" th:text="'Published at: ' + ${post.createdAt}">Published on</p>
+          <p class="text-muted small" th:text="'Published at: ' + ${post.createdAt}">Published
+            on</p>
           <p class="text-muted small" th:text="${post.body}">Body</p>
           <a class="btn btn-dark" th:href="@{/public/{id}(id=${post.account.id})}">Back to blog</a>
         </div>

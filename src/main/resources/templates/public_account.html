@@ -26,12 +26,6 @@
 </nav>
 <h1 style="margin-left: 15%">Blog of: <span th:text="${account.name}"></span></h1>
 <style>
-<!--.wrapper {-->
-<!--  padding: 20px;-->
-<!--  background: #eaeaea;-->
-<!--  max-width: 400px;-->
-<!--  margin: 50px auto;-->
-<!--}-->
   .chars {
   overflow: hidden;
   display: -webkit-box;
@@ -53,7 +47,7 @@
           <img class="img-thumbnail" th:src="@{${posts.image}}" alt="Post image" width="840"
                height="680">
           <p class="text-muted small" th:text="'Author: ' + ${account.name}">Author</p>
-          <p class="text-muted small" th:text="'Published at: ' + ${posts.createdAt}">Published
+          <p class="text-muted small" th:text="'Published at: ' + ${posts.getCreatedAt(posts.createdAt)}">Published
             on</p>
           <div class="wrapper">
           <p class="text-muted small chars" th:text="${posts.body}">Body</p>

@@ -42,4 +42,8 @@ public class AccountServiceImpl implements AccountService {
     return accountRepository.getById(id);
   }
 
+  public Optional<Account> findOneByEmail(String authUsername){
+    return accountRepository.findOneByEmailIgnoreCase(authUsername);
+  }
+
 }

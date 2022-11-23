@@ -2,6 +2,9 @@ package com.example.BlogPlatform.entity;
 
 import com.sun.istack.NotNull;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -34,15 +37,20 @@ public class Post {
   private String body;
   private String image;
   @Column(name = "created_at", nullable = false)
-  private LocalDate createdAt;
+  private LocalDateTime createdAt;
   @Column(name = "delete_at")
-  private LocalDate deletedAt;
+  private LocalDateTime deletedAt;
 
   public Post(Account account, String title, String body, String image) {
     this.account = account;
     this.title = title;
     this.body = body;
     this.image = image;
+  }
+
+  public String getCreatedAt(LocalDateTime date){
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy / MM / dd  -  HH:mm:ss");
+    return date.format(formatter);
   }
 
   @Override
