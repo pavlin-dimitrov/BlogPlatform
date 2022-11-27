@@ -3,6 +3,8 @@ package com.example.BlogPlatform.services.implementation;
 import com.example.BlogPlatform.entity.Post;
 import com.example.BlogPlatform.repository.PostRepository;
 import com.example.BlogPlatform.services.contract.PostService;
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -12,11 +14,13 @@ import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @AllArgsConstructor
 public class PostServiceImpl implements PostService {
 
+  public static final String IMAGE_STORAGE = System.getProperty("user.dir") + "/images";
   @Autowired
   private final PostRepository postRepository;
 
@@ -24,7 +28,6 @@ public class PostServiceImpl implements PostService {
   public List<Post> getAll() {
     return postRepository.findAll();
   }
-
   @Override
   public List<Post> getAllByAccountId(Long id) {
     List<Post> accountPosts = postRepository.findAllByAccountIdOrderByCreatedAtDesc(id);
@@ -38,12 +41,10 @@ public class PostServiceImpl implements PostService {
         .filter(post -> post.getDeletedAt() == null)
         .collect(Collectors.toList());
   }
-
   @Override
   public Optional<Post> getById(Long id) {
     return postRepository.findById(id);
   }
-
   @Override
   public Post save(Post post) {
     if (post.getId() == null) {
@@ -51,7 +52,6 @@ public class PostServiceImpl implements PostService {
     }
     return postRepository.save(post);
   }
-
   @Override
   public void deletePost(Long postId) {
     Optional<Post> optionalPost = postRepository.findById(postId);
@@ -76,5 +76,4 @@ public class PostServiceImpl implements PostService {
       post.setImage(imageURL);
     }
   }
-
 }

@@ -30,7 +30,7 @@
     <div class="item col-12 mb-3" style="width: 50%">
       <div class="card rounded shadow border-0">
         <div class="card-body p-3">
-          <form action="#" th:action="@{/save}" th:object="${newpost}" method="POST">
+          <form action="#" th:action="@{/save}" th:object="${newpost}" method="POST" enctype="multipart/form-data">
             <input type="hidden" th:field="*{account.id}"/>
             <input type="hidden" th:field="*{createdAt}"/>
             <input type="text" th:field="*{title}" placeholder="Blog post title" class="form-control mb-4 col-4">
@@ -39,8 +39,9 @@
               <span style="font-size: 14px; color: gray; font-family:'Courier New'" id="current">0</span>
               <span style="font-size: 14px; color: gray; font-family:'Courier New'" id="maximum">/ 1000</span>
             </div>
-            <input type="file" name="image" accept="image/*" class="form-control-file">
-            <button type="submit" class="btn btn-dark">Save</button>
+            <input type="file" name="image_upload" accept="image/*" class="form-control-file">
+            <input type="hidden" th:field="*{image}"/>
+            <button type="submit" name="save" class="btn btn-dark" value="form">Save</button>
           </form>
         </div>
       </div>
@@ -56,6 +57,7 @@ $('textarea').keyup(function() {
 
   current.text(characterCount);
 });
+
 </script>
 </body>
 </html>

@@ -27,17 +27,17 @@ public class AccountController {
     return "register";
   }
 
+  @PostMapping("/register")
+  public String register(@ModelAttribute(value = "registerRequest") Account account) {
+    Account registered = accountService.save(account.getName(), account.getBlogName(),
+        account.getEmail(), account.getPassword());
+    return registered == null ? "registration_error" : "redirect:/login";
+  }
+
   @GetMapping("/login")
   public String getLoginPage(Model model) {
     model.addAttribute("loginRequest", new Account());
     return "login";
-  }
-
-  @PostMapping("/register")
-  public String register(@ModelAttribute Account account) {
-    Account registered = accountService.save(account.getName(), account.getBlogName(),
-        account.getEmail(), account.getPassword());
-    return registered == null ? "registration_error" : "redirect:/login";
   }
 
   @PostMapping("/login")
