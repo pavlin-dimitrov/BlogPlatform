@@ -5,7 +5,6 @@ import com.example.BlogPlatform.repository.PostRepository;
 import com.example.BlogPlatform.services.contract.PostService;
 import java.io.File;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
@@ -20,7 +19,9 @@ import org.springframework.web.multipart.MultipartFile;
 @AllArgsConstructor
 public class PostServiceImpl implements PostService {
 
-  public static final String IMAGE_STORAGE = System.getProperty("user.dir") + "/images";
+  public static final String IMAGE_STORAGE =
+      System.getProperty("user.dir").
+          replace("\\", "/") + "/src/main/resources/static/images/";
   @Autowired
   private final PostRepository postRepository;
 
@@ -51,6 +52,16 @@ public class PostServiceImpl implements PostService {
       post.setCreatedAt(LocalDateTime.now());
     }
     return postRepository.save(post);
+  }
+
+  @Override
+  public void uploadImage(MultipartFile image, Post post){
+    String imageName = image.getOriginalFilename();
+    try {
+      image.transferTo(new File(IMAGE_STORAGE + post.getAccount().getId() + "/" + imageName));
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
   @Override
   public void deletePost(Long postId) {
