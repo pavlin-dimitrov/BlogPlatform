@@ -5,6 +5,7 @@ import com.example.BlogPlatform.entity.Post;
 import com.example.BlogPlatform.services.contract.AccountService;
 import com.example.BlogPlatform.services.contract.PostService;
 import java.util.List;
+import javax.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @AllArgsConstructor
@@ -41,11 +44,11 @@ public class AccountController {
   }
 
   @PostMapping("/login")
-  //TODO Check if list of accounts can be outside of this method ?
-  public String login(@ModelAttribute Account account, Model model) {
+  public String login(@ModelAttribute Account account, Model model, HttpSession session) {
     Account authenticated = accountService.authentication(account.getEmail(),
         account.getPassword());
     if (authenticated != null) {
+      session.setAttribute("authId", authenticated.getId());
       List<Account> accounts = accountService.getAllAccounts();
       model.addAttribute("authenticated", authenticated);
       model.addAttribute("accounts", accounts);
@@ -56,12 +59,17 @@ public class AccountController {
   }
 
   @GetMapping("/public/{id}")
-  //TODO Check if list of accounts can be outside of this method ? I have method in PostController...
-  public String openPublicAccount(@PathVariable(value = "id") Long id, Model model) {
+  public String openAccount(@PathVariable(value = "id") Long id, Model model, HttpSession session) {
+
     Account account = accountService.getAccountById(id);
     List<Post> posts = postService.getAllByAccountId(id);
     model.addAttribute("posts", posts);
     model.addAttribute("account", account);
+
+    if (account.getId()
+        .equals(session.getAttribute("authId"))){
+      return "private_account";
+    }
     return "public_account";
   }
 }
