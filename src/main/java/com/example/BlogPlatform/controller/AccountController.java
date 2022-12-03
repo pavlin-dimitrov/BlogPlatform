@@ -51,7 +51,6 @@ public class AccountController {
     Account authenticated = accountService.authentication(account.getEmail(),
         account.getPassword());
     if (authenticated != null) {
-      session.setAttribute("authId", authenticated.getId());
       session.setAttribute("auth", authenticated);
       return "redirect:/account";
     } else {
@@ -77,7 +76,7 @@ public class AccountController {
     model.addAttribute("authenticated", auth);
 
     if (account.getId()
-        .equals(auth.getId())){ //session.getAttribute("authId")
+        .equals(auth.getId())){
       return "private_account";
     }
     return "public_account";

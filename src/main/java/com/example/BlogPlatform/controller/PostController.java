@@ -12,8 +12,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
@@ -83,15 +85,22 @@ public class PostController {
     return "redirect:/post/" + post.getId();
   }
 
-  @GetMapping("/delete/{id}")
-  public String deletePost(@PathVariable Long id) {
+  @GetMapping("post/{id}/delete")
+  public String deletePost(@PathVariable Long id, Model model) {
     Optional<Post> optionalPost = this.postService.getById(id);
 
     if (optionalPost.isPresent()) {
-      postService.deletePost(id);
-      return "redirect:/"; //TODO How to redirect to my page?
+      Post postToDelete = optionalPost.get();
+      model.addAttribute("post_to_delete", postToDelete);
+      return "delete";
     } else {
       return "error404";
     }
+  }
+
+  @PostMapping("/delete/{id}")
+  public String setDeletedAt(@ModelAttribute("post_to_delete") Post post){
+    postService.deletePost(post.getId());
+    return "redirect:/account";
   }
 }
