@@ -73,6 +73,7 @@ public class PostServiceImpl implements PostService {
   }
 
   @Override
+  @Transactional
   public void deletePost(Long postId) {
     Optional<Post> optionalPost = postRepository.findById(postId);
     if (optionalPost.isPresent()) {
