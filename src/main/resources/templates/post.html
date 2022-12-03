@@ -17,9 +17,9 @@
 
 <nav class="navbar navbar-light bg-light nav justify-content-end">
   <form class="form-inline">
-    <button class="btn btn-outline-success" type="button">My Blog</button>
-    <button class="btn btn-outline-success" type="button">New Post</button>
-    <button class="btn btn-outline-success" style="margin-right: 35px" type="button">Logout</button>
+    <a class="btn btn-outline-success" th:href="@{/account}">My Blog</a>
+    <a class="btn btn-outline-success" th:href="@{/new_post/{id}(id=${authenticated.id})}">New Post</a>
+    <a class="btn btn-outline-success" style="margin-right: 35px">Logout</a>
   </form>
 </nav>
 
@@ -33,7 +33,7 @@
           <img class="img-thumbnail" th:src="@{${post.image}}" alt="Post image" width="840"
                height="680">
           <p class="text-muted small" th:text="'Author: ' + ${post.account.name}">Author: Name</p>
-          <p class="text-muted small" th:text="'Published at: ' + ${post.createdAt}">Published
+          <p class="text-muted small" th:text="'Published at: ' + ${post.getCreatedAt(post.createdAt)}">Published
             on</p>
           <p class="text-muted small" th:text="${post.body}">Body</p>
           <a class="btn btn-dark" th:href="@{/public/{id}(id=${post.account.id})}">Back to blog</a>

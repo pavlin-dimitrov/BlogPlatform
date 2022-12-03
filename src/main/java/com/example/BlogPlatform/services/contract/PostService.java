@@ -19,9 +19,13 @@ public interface PostService {
 
   Post save(Post post);
 
+  void deleteOldImageFile(Post post);
+
+  String getOldImagePath(Post post);
+
   void uploadImage(MultipartFile image, Post post);
 
   void deletePost(Long postId);
 
-  void updatePost(Long postId, String title, String body, String imageURL);
+  void updatePost(Long postId, String title, String body, String newImageURL, MultipartFile newImageFile);
 }

@@ -5,6 +5,7 @@ import com.example.BlogPlatform.entity.Post;
 import com.example.BlogPlatform.services.contract.AccountService;
 import com.example.BlogPlatform.services.contract.PostService;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.web.servlet.server.Session;
@@ -15,10 +16,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @AllArgsConstructor
+@SessionAttributes("auth")
 public class AccountController {
 
   private final AccountService accountService;
@@ -49,25 +52,32 @@ public class AccountController {
         account.getPassword());
     if (authenticated != null) {
       session.setAttribute("authId", authenticated.getId());
-      List<Account> accounts = accountService.getAllAccounts();
-      model.addAttribute("authenticated", authenticated);
-      model.addAttribute("accounts", accounts);
-      return "account";
+      session.setAttribute("auth", authenticated);
+      return "redirect:/account";
     } else {
       return "authenticated_error";
     }
   }
 
+  @GetMapping("/account")
+  public void allAccounts(@ModelAttribute Account account, Model model, HttpSession session){
+    Account auth = (Account) session.getAttribute("auth");
+    List<Account> accounts = accountService.getAllAccounts();
+    model.addAttribute("authenticated", auth);
+    model.addAttribute("accounts", accounts);
+  }
+
   @GetMapping("/public/{id}")
   public String openAccount(@PathVariable(value = "id") Long id, Model model, HttpSession session) {
-
+    Account auth = (Account) session.getAttribute("auth");
     Account account = accountService.getAccountById(id);
     List<Post> posts = postService.getAllByAccountId(id);
     model.addAttribute("posts", posts);
     model.addAttribute("account", account);
+    model.addAttribute("authenticated", auth);
 
     if (account.getId()
-        .equals(session.getAttribute("authId"))){
+        .equals(auth.getId())){ //session.getAttribute("authId")
       return "private_account";
     }
     return "public_account";
