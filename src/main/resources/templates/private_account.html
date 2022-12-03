@@ -19,9 +19,9 @@
 
 <nav class="navbar navbar-light bg-light nav justify-content-end">
   <form class="form-inline">
-    <button class="btn btn-outline-success" type="button">My Blog</button>
-    <button class="btn btn-outline-success" type="button">New Post</button>
-    <button class="btn btn-outline-success" style="margin-right: 35px" type="button">Logout</button>
+    <a class="btn btn-outline-success" th:href="@{/account}">My Blog</a>
+    <a class="btn btn-outline-success" th:href="@{/new_post/{id}(id=${authenticated.id})}">New Post</a>
+    <a class="btn btn-outline-success" style="margin-right: 35px">Logout</a>
   </form>
 </nav>
 <h1 style="margin-left: 15%">Blog of: <span th:text="${account.name}"></span></h1>
@@ -51,7 +51,7 @@
             on</p>
           <div class="wrapper">
             <p class="text-muted small chars" th:text="${posts.body}">Body</p>
-            <a class="btn btn-dark" th:href="@{account.id}">Edit</a>
+            <a class="btn btn-dark" th:href="@{'/edit/' + ${posts.id}}">Edit</a>
             <a class="btn btn-dark" th:href="@{account.id}">Delete</a>
           </div>
         </div>
